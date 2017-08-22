@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pdb
 
-def func(sky_level, psf_fwhm , pixel_scale, file_name, random_seed, nx, ny, gal_flux_min, gal_flux_max, gal_hlr_min, gal_hlr_max, gal_e_min, gal_e_max, gsparams, psf1, psf2, psf3_inner, psf3_outer, psf3, atmos, aberrations, psf4, optics,  psf5, psfs, psf_names, psf_times, psf_fft_times, psf_phot_times, gal1, gal2, gal3, gal4, bulge, disk, gal5, gals, gal_names, gal_times, gal_fft_times, gal_phot_times, setup_times, fft_times, phot_times, noise_times, k, all_fluxes_i, psf, psf_name, gal, gal_name):
+def func(file_name, random_seed, pixel_scale, nx, ny, sky_level, gal_flux_min, gal_flux_max, gal_hlr_min, gal_hlr_max, gal_e_min, gal_e_max, psf_fwhm, gsparams, psf1, psf2, psf3_inner, psf3_outer, psf3, atmos, aberrations, psf4, optics,  psf5, psfs, psf_names, psf_times, psf_fft_times, psf_phot_times, gal1, gal2, gal3, gal4, bulge, disk, gal5, gals, gal_names, gal_times, gal_fft_times, gal_phot_times, setup_times, fft_times, phot_times, noise_times, k, all_fluxes_i, psf, psf_name, gal, gal_name):
 
     #Functioning
     #---> start here
@@ -296,7 +296,7 @@ def main(argv):
                                                            logger.debug('      Start work on image %d',i)
                                                                
                                                            all_fluxes_i = all_fluxes[i]
-                                                           image, t1, t2, t3, t4, t5, t6, k, flux, hlr, gal_shape, y_i, psfs, gals, file_name = func(sky_level, psf_fwhm , pixel_scale,file_name, random_seed, nx, ny, gal_flux_min, gal_flux_max, gal_hlr_min, gal_hlr_max, gal_e_min, gal_e_max, gsparams, psf1, psf2, psf3_inner, psf3_outer, psf3, atmos, aberrations, psf4, optics,  psf5, psfs, psf_names, psf_times, psf_fft_times, psf_phot_times, gal1, gal2, gal3, gal4, bulge, disk, gal5, gals, gal_names, gal_times, gal_fft_times, gal_phot_times, setup_times, fft_times, phot_times, noise_times, k, all_fluxes_i, psf, psf_name, gal, gal_name)
+                                                           image, t1, t2, t3, t4, t5, t6, k, flux, hlr, gal_shape, y_i, psfs, gals, file_name = func(file_name, random_seed, pixel_scale, nx, ny, sky_level, gal_flux_min, gal_flux_max, gal_hlr_min, gal_hlr_max, gal_e_min, gal_e_max, psf_fwhm, gsparams, psf1, psf2, psf3_inner, psf3_outer, psf3, atmos, aberrations, psf4, optics,  psf5, psfs, psf_names, psf_times, psf_fft_times, psf_phot_times, gal1, gal2, gal3, gal4, bulge, disk, gal5, gals, gal_names, gal_times, gal_fft_times, gal_phot_times, setup_times, fft_times, phot_times, noise_times, k, all_fluxes_i, psf, psf_name, gal, gal_name)
             
                                                            ### Store that into the list of all images
                                                            all_images += [image]
@@ -380,7 +380,7 @@ def main(argv):
     l10, = ax2.plot(ranges_DFTmin,xnew_2, 'g-', label='l10')
     l11, = ax2.plot(ranges_DFTmin,xnew_3, 'y--',label='l11')
     l12, = ax2.plot(ranges_DFTmin,xnew_4, 'r--',label='l12')
-    l13, = ax2.plot(ranges_DFTmin,y)
+    l13, = ax2.plot(ranges_DFTmin,y, 'b-')
     l14, = ax3.plot(ranges_DFTmin, y_flux10, 'b-', label='l14')
     l15, = ax3.plot(ranges_DFTmin, y_flux1020, 'g-', label='l15')
     l16, = ax3.plot(ranges_DFTmin, y_flux2030, 'y--',label='l16')
@@ -390,9 +390,9 @@ def main(argv):
     ax2.legend([l9,l10,l11,l2],['Flux 10','Flux 1020','Flux 2030','Flux 3040'], loc='best')
     ax3.legend([l14,l15,l16,l17],['Flux 10','Flux 1020','Flux 2030','Flux 3040'], loc='best')
     plt.xlabel('DFT min')
-    ax1.ylabel('Time')
-    ax2.ylabel('DFT minus Photon-Shooting')
-    ax3.ylabel('Flux')
+    ax1.set_ylabel('Time')
+    ax2.set_ylabel('DFT minus Photon-Shooting')
+    ax3.set_ylabel('Flux')
     f.subplots_adjust(hspace=0)
     plt.setp([a.get_xticklabels() for a in f.axes[:-1]], visible=False)
     plt.savefig('DFTmin_varried_1.png')
